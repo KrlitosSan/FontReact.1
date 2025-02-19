@@ -1,0 +1,75 @@
+import { use, useEffect, useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import Conversor from "./Conversor";
+
+function App() {
+  const [usuario, setUsuario] = useState("");
+  const [password, setPassword] = useState("");
+  const [logueado, setLogueado] = useState(false);
+
+  async function Ingresar() {
+    const peticion = await fetch(
+      "http://localhost:3000/login?usuario=" +
+        usuario +
+        "&password=" +
+        password,
+      { credentials: "include" }
+    );
+    if (peticion.status === 200) {
+      setLogueado(true);
+      alert("Bienvenid@ " + usuario);
+    } else {
+      alert("Usuario o password incorrectos");
+    }
+    // if (usuario === "mymy" && password === "123") {
+    //   alert("Ingreso OK");
+    //   setLogueado(true);
+    // } else {
+    //   alert("Usuario o password incorrectos");
+    // }
+  }
+
+  async function validar() {
+    const peticion = await fetch("http://localhost:3000/validar", {
+      credentials: "include",
+    });
+    if (peticion.status === 200) {
+      setLogueado(true);
+    }
+  }
+
+  useEffect(() => {
+    validar();
+  }, []);
+
+  if (logueado) {
+    return <Conversor />;
+  }
+  return (
+    <>
+      <h1>Inicio de Sesion</h1>
+      <input
+        type="text"
+        name="usuario"
+        placeholder="Usuario"
+        id="usuario"
+        value={usuario}
+        onChange={(e) => setUsuario(e.target.value)}
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        id="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button onClick={Ingresar}>Ingresar</button>
+      {password}
+    </>
+  );
+}
+
+export default App;
