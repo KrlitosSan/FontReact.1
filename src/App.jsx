@@ -1,13 +1,19 @@
 import { use, useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import Conversor from "./Conversor";
+import Regisro from "./Registro";
+import Usuarios from "./Usuarios";
+import Registrar from "./Registro";
 
 function App() {
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
   const [logueado, setLogueado] = useState(false);
+  const [recargar, setRecargar] = useState(false);
+
+  function recargarAhora() {
+    setRecargar(!recargar);
+  }
 
   async function Ingresar() {
     const peticion = await fetch(
@@ -23,12 +29,6 @@ function App() {
     } else {
       alert("Usuario o password incorrectos");
     }
-    // if (usuario === "mymy" && password === "123") {
-    //   alert("Ingreso OK");
-    //   setLogueado(true);
-    // } else {
-    //   alert("Usuario o password incorrectos");
-    // }
   }
 
   async function validar() {
@@ -45,8 +45,15 @@ function App() {
   }, []);
 
   if (logueado) {
-    return <Conversor />;
+    return (
+      <>
+        <Registrar recargarAhora={recargarAhora} />
+        <Conversor />
+        <Usuarios recargar={recargar} />
+      </>
+    );
   }
+
   return (
     <>
       <h1>Inicio de Sesion</h1>
@@ -67,7 +74,6 @@ function App() {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={Ingresar}>Ingresar</button>
-      {password}
     </>
   );
 }
