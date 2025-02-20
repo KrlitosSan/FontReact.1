@@ -7,7 +7,7 @@ function Registrar({ recargarAhora }) {
 
   async function Registrar() {
     const peticion = await fetch(
-      "http://localhost:3000/registro?usuario=" +
+      "https://backexpress-production.up.railway.app/registro?usuario=" +
         usuarioRegistro +
         "&password=" +
         passwordRegistro,

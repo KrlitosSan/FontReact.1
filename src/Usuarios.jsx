@@ -5,9 +5,12 @@ function Usuarios({ recargar }) {
   const [usuarios, setUsuarios] = useState([]);
 
   async function obtenerUsuarios() {
-    const peticion = await fetch("http://localhost:3000/usuarios", {
-      credentials: "include",
-    });
+    const peticion = await fetch(
+      "https://backexpress-production.up.railway.app/usuarios",
+      {
+        credentials: "include",
+      }
+    );
     if (peticion.status === 200) {
       const respuesta = await peticion.json();
       setUsuarios(respuesta);
@@ -15,10 +18,13 @@ function Usuarios({ recargar }) {
   }
 
   async function eliminarUsuario(id) {
-    const peticion = await fetch("http://localhost:3000/usuarios?id=" + id, {
-      credentials: "include",
-      method: "DELETE",
-    });
+    const peticion = await fetch(
+      "https://backexpress-production.up.railway.app/usuarios?id=" + id,
+      {
+        credentials: "include",
+        method: "DELETE",
+      }
+    );
     if (peticion.status === 200) {
       alert("Usuario eliminado");
       obtenerUsuarios();

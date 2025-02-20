@@ -17,7 +17,7 @@ function App() {
 
   async function Ingresar() {
     const peticion = await fetch(
-      "http://localhost:3000/login?usuario=" +
+      "https://backexpress-production.up.railway.app/login?usuario=" +
         usuario +
         "&password=" +
         password,
@@ -32,9 +32,12 @@ function App() {
   }
 
   async function validar() {
-    const peticion = await fetch("http://localhost:3000/validar", {
-      credentials: "include",
-    });
+    const peticion = await fetch(
+      "https://backexpress-production.up.railway.app/validar",
+      {
+        credentials: "include",
+      }
+    );
     if (peticion.status === 200) {
       setLogueado(true);
     }
